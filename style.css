@@ -616,7 +616,7 @@ h1 {
     .nav-container { padding: 15px 20px; }
     .nav-menu {
         position: fixed;
-        top: 0;
+        top: 70px;
         left: 0;
         right: 0;
         background: var(--nav-bg);
@@ -627,7 +627,6 @@ h1 {
         transition: transform 0.3s ease-in-out;
         height: 0;
         overflow: hidden;
-        margin-top: 70px;
     }
     .nav-menu.active { 
         transform: translateY(0); 
