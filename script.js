@@ -6,12 +6,10 @@ const ctx = canvas.getContext('2d');
 let particles = [];
 let mouse = { x: null, y: null, radius: 150 };
 const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-
 class Particle {
     constructor() {
         this.x = Math.random() * canvas.width;
@@ -47,13 +45,11 @@ class Particle {
         if (this.y > canvas.height) this.y = 0;
     }
 }
-
 function initParticles() {
     particles = [];
     let count = Math.min((canvas.width * canvas.height) / 9000, 120);
     for (let i = 0; i < count; i++) particles.push(new Particle());
 }
-
 function connectParticles() {
     const theme = document.body.dataset.theme;
     const color = theme === 'light' ? '77, 166, 255' : '77, 166, 255';
@@ -73,18 +69,16 @@ function connectParticles() {
         }
     }
 }
-
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
     connectParticles();
     requestAnimationFrame(animate);
 }
-
 // Mouse and Touch Events
-window.addEventListener('resize', () => { 
-    resizeCanvas(); 
-    initParticles(); 
+window.addEventListener('resize', () => {
+    resizeCanvas();
+    initParticles();
     const navbar = document.querySelector('.navbar');
     const navMenu = document.querySelector('.nav-menu');
     if (window.innerWidth <= 768 && navMenu) {
@@ -93,7 +87,6 @@ window.addEventListener('resize', () => {
 });
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-
 // Mobile touch support
 if (!isTouchDevice) {
     document.addEventListener('touchstart', e => {
@@ -103,7 +96,6 @@ if (!isTouchDevice) {
             mouse.y = touch.clientY;
         }
     }, { passive: true });
-
     document.addEventListener('touchmove', e => {
         const touch = e.touches[0];
         if (touch) {
@@ -111,15 +103,12 @@ if (!isTouchDevice) {
             mouse.y = touch.clientY;
         }
     }, { passive: true });
-
     document.addEventListener('touchend', () => {
         mouse.x = null;
         mouse.y = null;
     }, { passive: true });
 }
-
 resizeCanvas(); initParticles(); animate();
-
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const navMenu = document.querySelector('.nav-menu');
@@ -127,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.style.top = navbar.offsetHeight + 'px';
     }
 });
-
 // ============================================
 // THEME TOGGLE
 // ============================================
@@ -135,21 +123,18 @@ const themeBtn = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('theme') || 'dark';
 document.body.dataset.theme = savedTheme;
 updateThemeIcon(savedTheme);
-
 function updateThemeIcon(theme) {
     const isDark = theme === 'dark';
-    themeBtn.innerHTML = isDark 
+    themeBtn.innerHTML = isDark
         ? `<img src="images/moon.png" alt="Dark Mode" width="20" height="20">`
         : `<img src="images/sun.png" alt="Light Mode" width="20" height="20">`;
 }
-
 themeBtn.addEventListener('click', () => {
     const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
     document.body.dataset.theme = newTheme;
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
 });
-
 // ============================================
 // MOBILE MENU
 // ============================================
@@ -159,13 +144,11 @@ menuToggle.addEventListener('click', (e) => {
     e.stopPropagation();
     navMenu.classList.toggle('active');
 });
-
 document.addEventListener('click', (e) => {
     if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
         navMenu.classList.remove('active');
     }
 });
-
 // ============================================
 // TYPING EFFECT
 // ============================================
@@ -175,82 +158,61 @@ const texts = [
     'ML & AI Enthusiast',
     'Open Source Contributor'
 ];
-
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
-
 const typedEl = document.querySelector('.typed-text');
-
 function type() {
     const current = texts[textIndex];
-
     typedEl.textContent = current.substring(0, charIndex);
-
     if (!isDeleting) {
         charIndex++;
     } else {
         charIndex--;
     }
-
     let delay = isDeleting ? 50 : 100;
-
     if (!isDeleting && charIndex > current.length) {
         isDeleting = true;
         delay = 2000;
     }
-
     if (isDeleting && charIndex < 0) {
         isDeleting = false;
         textIndex = (textIndex + 1) % texts.length;
         delay = 500;
     }
-
     setTimeout(type, delay);
 }
-
 type();
-
 // ============================================
 // SMOOTH SCROLL
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-
         const target = document.querySelector(this.getAttribute('href'));
         if (!target) return;
-
         const offset = 80;
         const targetY = target.getBoundingClientRect().top + window.pageYOffset - offset;
         const startY = window.pageYOffset;
         const distance = targetY - startY;
         const duration = 800;
         const startTime = performance.now();
-
         function animateScroll(currentTime) {
             const time = currentTime - startTime;
             const progress = Math.min(time / duration, 1);
-
             const easeOut = 1 - Math.pow(1 - progress, 3);
-
             window.scrollTo(0, startY + distance * easeOut);
-
             if (progress < 1) requestAnimationFrame(animateScroll);
         }
-
         requestAnimationFrame(animateScroll);
-
         navMenu.classList.remove('active');
     });
 });
-
 // ============================================
 // ACTIVE NAV ON SCROLL
 // ============================================
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
-
 window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
@@ -262,13 +224,11 @@ window.addEventListener('scroll', () => {
         if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
     });
 });
-
 // ============================================
 // GITHUB API - FETCH REPOS
 // ============================================
 const GITHUB_USERNAME = 'DevArqf';
 const projectGrid = document.getElementById('project-grid');
-
 const projectImages = {
     'VoiceGuard': 'https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg',
     'Cadia-Bot': 'https://cybrancee.com/blog/wp-content/uploads/2025/08/discordBotCharacterBanner.jpg',
@@ -278,14 +238,13 @@ const projectImages = {
     'FR4-Leaking-Tool': 'https://cdn.educba.com/academy/wp-content/uploads/2019/05/Data-Mining-Tool.jpg',
     'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png'
 };
-
 async function fetchGitHubRepos() {
     try {
         const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`);
         if (!res.ok) throw new Error('Failed');
         const repos = await res.json();
-        const filtered = repos.filter(r => 
-            (!r.fork && r.name !== GITHUB_USERNAME && r.name !== 'devarqf.github.io') || 
+        const filtered = repos.filter(r =>
+            (!r.fork && r.name !== GITHUB_USERNAME && r.name !== 'devarqf.github.io') ||
             (r.fork && r.name === 'create-discobase')
         );
         displayProjects(filtered.slice(0, 6));
@@ -293,22 +252,20 @@ async function fetchGitHubRepos() {
         projectGrid.innerHTML = '<p class="loading">Failed to load projects.</p>';
     }
 }
-
 function displayProjects(repos) {
     projectGrid.innerHTML = '';
     repos.forEach(repo => {
         const imgUrl = projectImages[repo.name] || '';
         const card = document.createElement('div');
         card.className = 'project-card';
-        
+       
         let tags = [repo.language];
         if (repo.topics) tags = [...tags, ...repo.topics.slice(0, 4)];
         tags = tags.filter(Boolean);
-
         card.innerHTML = `
             <div class="project-image">
-                ${imgUrl 
-                    ? `<img src="${imgUrl}" alt="${repo.name}">` 
+                ${imgUrl
+                    ? `<img src="${imgUrl}" alt="${repo.name}">`
                     : `<span class="project-placeholder">📂</span>`}
             </div>
             <div class="project-info">
@@ -325,9 +282,7 @@ function displayProjects(repos) {
         projectGrid.appendChild(card);
     });
 }
-
 function formatName(name) {
     return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
-
 document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
