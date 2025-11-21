@@ -85,23 +85,23 @@ window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
-// Mobile touch support
-canvas.addEventListener('touchstart', e => {
-    e.preventDefault();
+// Mobile touch support - Global for body
+document.addEventListener('touchstart', e => {
     const touch = e.touches[0];
     mouse.x = touch.clientX;
     mouse.y = touch.clientY;
-});
-canvas.addEventListener('touchmove', e => {
-    e.preventDefault();
+}, { passive: true });
+
+document.addEventListener('touchmove', e => {
     const touch = e.touches[0];
     mouse.x = touch.clientX;
     mouse.y = touch.clientY;
-});
-canvas.addEventListener('touchend', () => {
+}, { passive: true });
+
+document.addEventListener('touchend', () => {
     mouse.x = null;
     mouse.y = null;
-});
+}, { passive: true });
 
 resizeCanvas(); initParticles(); animate();
 
@@ -116,8 +116,8 @@ updateThemeIcon(savedTheme);
 function updateThemeIcon(theme) {
     const isDark = theme === 'dark';
     themeBtn.innerHTML = isDark 
-        ? `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0 0 18c.83 0 1.5-.67 1.5-1.5S12.83 18 12 18a9 9 0 0 1 0-18h0z"/></svg>`
-        : `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 19a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"/></svg>`;
+        ? `<img src="images/moon.png" alt="Dark Mode" width="20" height="20">`
+        : `<img src="images/sun.png" alt="Light Mode" width="20" height="20">`;
 }
 
 themeBtn.addEventListener('click', () => {
@@ -252,7 +252,6 @@ async function fetchGitHubRepos() {
         const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`);
         if (!res.ok) throw new Error('Failed');
         const repos = await res.json();
-        // Updated filter: include non-forks except specific repos, and include specific fork
         const filtered = repos.filter(r => 
             (!r.fork && r.name !== GITHUB_USERNAME && r.name !== 'devarqf.github.io') || 
             (r.fork && r.name === 'create-discobase')
