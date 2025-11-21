@@ -16,26 +16,28 @@
     <canvas id="particles"></canvas>
 
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">Malik Johnson</a>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><button id="theme-toggle" class="theme-btn" title="Toggle theme">🌙</button></li>
-            </ul>
-            <button class="menu-toggle" id="menu-toggle">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#home" class="nav-logo">Malik Johnson</a>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-btn" title="Toggle theme"></button></li>
+                </ul>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-    <div class="container">
+    <main class="container">
         <!-- Hero Section -->
-        <header id="home" class="hero">
+        <section id="home" class="hero">
             <div class="hero-content">
                 <h1>Hello, I'm <span class="highlight">Malik Johnson</span></h1>
                 <p class="subtitle">I'm a <span class="typed-text"></span><span class="cursor">|</span></p>
@@ -59,7 +61,7 @@
                     </a>
                 </div>
             </div>
-        </header>
+        </section>
 
         <!-- About Section -->
         <section id="about" class="section">
@@ -76,28 +78,36 @@
                 </div>
                 <div class="about-cards">
                     <div class="about-card">
-                        <div class="about-icon">🎓</div>
+                        <div class="about-icon">
+                            <img src="images/education.png" alt="Education" width="24" height="24">
+                        </div>
                         <div>
                             <h4>Education</h4>
                             <p>Computer Science Student</p>
                         </div>
                     </div>
                     <div class="about-card">
-                        <div class="about-icon">💼</div>
+                        <div class="about-icon">
+                            <img src="images/experience.png" alt="Experience" width="24" height="24">
+                        </div>
                         <div>
                             <h4>Experience</h4>
-                            <p>Discord Bot Development</p>
+                            <p>Searching for more...</p>
                         </div>
                     </div>
                     <div class="about-card">
-                        <div class="about-icon">📍</div>
+                        <div class="about-icon">
+                            <img src="images/location.png" alt="Location" width="24" height="24">
+                        </div>
                         <div>
                             <h4>Location</h4>
                             <p>Willemstad, Curaçao</p>
                         </div>
                     </div>
                     <div class="about-card">
-                        <div class="about-icon">🌐</div>
+                        <div class="about-icon">
+                            <img src="images/language.png" alt="Languages" width="24" height="24">
+                        </div>
                         <div>
                             <h4>Languages</h4>
                             <p>English, Dutch, Spanish</p>
@@ -129,35 +139,49 @@
             </div>
             <div class="skills-container">
                 <div class="skill-category">
-                    <h3>Programming & Data</h3>
+                    <h3>Programming Languages</h3>
                     <div class="skills-grid">
-                        <div class="skill-card"><div class="skill-icon">🐍</div><span>Python</span><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">⚡</div><span>JavaScript</span><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🟢</div><span>Node.js</span><div class="skill-bar"><div class="skill-progress" style="width:88%"></div></div></div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Bot Development</h3>
-                    <div class="skills-grid">
-                        <div class="skill-card"><div class="skill-icon">🤖</div><span>Discord.js</span><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🐍</div><span>Discord.py</span><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🔧</div><span>Bot Commands</span><div class="skill-bar"><div class="skill-progress" style="width:92%"></div></div></div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>AI & Machine Learning</h3>
-                    <div class="skills-grid">
-                        <div class="skill-card"><div class="skill-icon">🧠</div><span>OpenAI API</span><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🎤</div><span>Whisper API</span><div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🤖</div><span>ChatGPT</span><div class="skill-bar"><div class="skill-progress" style="width:88%"></div></div></div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <img src="images/python.png" alt="Python" width="32" height="32">
+                            </div>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <img src="images/javascript.png" alt="JavaScript" width="32" height="32">
+                            </div>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <img src="images/nodejs.png" alt="Node.js" width="32" height="32">
+                            </div>
+                            <span>Node.js</span>
+                        </div>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Tools & Platforms</h3>
                     <div class="skills-grid">
-                        <div class="skill-card"><div class="skill-icon">📂</div><span>Git</span><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🆚</div><span>VS Code</span><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
-                        <div class="skill-card"><div class="skill-icon">🔗</div><span>REST APIs</span><div class="skill-bar"><div class="skill-progress" style="width:88%"></div></div></div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <img src="images/git.png" alt="Git" width="32" height="32">
+                            </div>
+                            <span>Git</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <img src="images/vsc.png" alt="VS Code" width="32" height="32">
+                            </div>
+                            <span>VS Code</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <img src="images/database.png" alt="REST APIs" width="32" height="32">
+                            </div>
+                            <span>REST APIs</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,11 +198,15 @@
                     <h3>Get In Touch</h3>
                     <p>Feel free to reach out to me for any questions or opportunities!</p>
                     <div class="contact-item">
-                        <div class="contact-icon">📧</div>
+                        <div class="contact-icon">
+                            <img src="images/mail.png" alt="Email" width="24" height="24">
+                        </div>
                         <div><h4>Email</h4><p>devarqf@gmail.com</p></div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">📍</div>
+                        <div class="contact-icon">
+                            <img src="images/location.png" alt="Location" width="24" height="24">
+                        </div>
                         <div><h4>Location</h4><p>Willemstad, Curaçao</p></div>
                     </div>
                 </div>
@@ -195,9 +223,8 @@
             </div>
             <p class="copyright">© 2025 Malik Johnson. All Rights Reserved.</p>
         </footer>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
 </html>
-
