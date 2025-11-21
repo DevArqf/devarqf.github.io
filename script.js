@@ -226,4 +226,3 @@ function formatName(name) {
 }
 
 document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
-
