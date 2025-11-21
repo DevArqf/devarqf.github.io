@@ -85,18 +85,28 @@ window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
-// Mobile touch support - Global for body
+// Mobile touch support - Global for body, with preventDefault for canvas interaction
 document.addEventListener('touchstart', e => {
+    if (e.target === canvas || e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+        e.preventDefault();
+    }
     const touch = e.touches[0];
-    mouse.x = touch.clientX;
-    mouse.y = touch.clientY;
-}, { passive: true });
+    if (touch) {
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+    }
+}, { passive: false });
 
 document.addEventListener('touchmove', e => {
+    if (e.target === canvas || e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+        e.preventDefault();
+    }
     const touch = e.touches[0];
-    mouse.x = touch.clientX;
-    mouse.y = touch.clientY;
-}, { passive: true });
+    if (touch) {
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+    }
+}, { passive: false });
 
 document.addEventListener('touchend', () => {
     mouse.x = null;
@@ -132,7 +142,17 @@ themeBtn.addEventListener('click', () => {
 // ============================================
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
-menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navMenu.classList.toggle('active');
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        navMenu.classList.remove('active');
+    }
+});
 
 // ============================================
 // TYPING EFFECT (FIXED)
