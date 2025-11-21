@@ -1,0 +1,231 @@
+// Malik's Portfolio - JavaScript
+
+// ============================================
+// PARTICLE SYSTEM
+// ============================================
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouse = { x: null, y: null, radius: 150 };
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.density = Math.random() * 30 + 1;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+    }
+    draw() {
+        const theme = document.body.dataset.theme;
+        const color = theme === 'light' ? '77, 166, 255' : '77, 166, 255';
+        ctx.fillStyle = `rgba(${color}, ${this.size / 3})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    update() {
+        if (mouse.x && mouse.y) {
+            let dx = mouse.x - this.x, dy = mouse.y - this.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius) {
+                let force = (mouse.radius - dist) / mouse.radius;
+                let angle = Math.atan2(dy, dx);
+                this.x -= Math.cos(angle) * force * this.density * 0.5;
+                this.y -= Math.sin(angle) * force * this.density * 0.5;
+            }
+        }
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+    }
+}
+
+function initParticles() {
+    particles = [];
+    let count = Math.min((canvas.width * canvas.height) / 9000, 120);
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+}
+
+function connectParticles() {
+    const theme = document.body.dataset.theme;
+    const color = theme === 'light' ? '77, 166, 255' : '77, 166, 255';
+    for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+            let dx = particles[a].x - particles[b].x;
+            let dy = particles[a].y - particles[b].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+                ctx.strokeStyle = `rgba(${color}, ${0.12 - dist / 1000})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath();
+                ctx.moveTo(particles[a].x, particles[a].y);
+                ctx.lineTo(particles[b].x, particles[b].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    connectParticles();
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+
+resizeCanvas(); initParticles(); animate();
+
+// ============================================
+// THEME TOGGLE
+// ============================================
+const themeBtn = document.getElementById('theme-toggle');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.body.dataset.theme = savedTheme;
+themeBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+
+themeBtn.addEventListener('click', () => {
+    const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.body.dataset.theme = newTheme;
+    localStorage.setItem('theme', newTheme);
+    themeBtn.textContent = newTheme === 'light' ? '☀️' : '🌙';
+});
+
+// ============================================
+// MOBILE MENU
+// ============================================
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+// ============================================
+// TYPING EFFECT
+// ============================================
+const texts = ['Discord Bot Developer', 'Automation Specialist', 'ML & AI Enthusiast', 'Open Source Contributor'];
+let textIndex = 0, charIndex = 0, isDeleting = false;
+const typedEl = document.querySelector('.typed-text');
+
+function type() {
+    const current = texts[textIndex];
+    typedEl.textContent = isDeleting 
+        ? current.substring(0, charIndex--) 
+        : current.substring(0, charIndex++);
+    
+    let delay = isDeleting ? 50 : 100;
+    if (!isDeleting && charIndex === current.length) { delay = 2000; isDeleting = true; }
+    else if (isDeleting && charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % texts.length; delay = 500; }
+    setTimeout(type, delay);
+}
+type();
+
+// ============================================
+// SMOOTH SCROLL
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offset = 80;
+            const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: pos, behavior: 'smooth' });
+            navMenu.classList.remove('active');
+        }
+    });
+});
+
+// ============================================
+// ACTIVE NAV ON SCROLL
+// ============================================
+const sections = document.querySelectorAll('section, header');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (pageYOffset >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+    });
+});
+
+// ============================================
+// GITHUB API - FETCH REPOS
+// ============================================
+const GITHUB_USERNAME = 'DevArqf';
+const projectGrid = document.getElementById('project-grid');
+
+// Project images - Add your own image URLs here
+const projectImages = {
+    'VoiceGuard': 'https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg',
+    'Cadia-Bot': 'https://cybrancee.com/blog/wp-content/uploads/2025/08/discordBotCharacterBanner.jpg',
+    'API-Header-Spoofer': 'https://miro.medium.com/v2/resize:fit:1200/1*EEgef3BnDkS9ScNQ8O8mkA.png',
+    'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
+    'create-discobase': 'https://camo.githubusercontent.com/e9f3d83505b2eb1ea7fb6c2a9105dd6c93f45bf0c8e96578ba9e59ea6acc9b65/68747470733a2f2f692e6962622e636f2f714d6248504b74592f646973636f2d312e706e67',
+    'FR4-Leaking-Tool': 'https://cdn.educba.com/academy/wp-content/uploads/2019/05/Data-Mining-Tool.jpg'
+};
+
+async function fetchGitHubRepos() {
+    try {
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`);
+        if (!res.ok) throw new Error('Failed');
+        const repos = await res.json();
+        const filtered = repos.filter(r => !r.fork && r.name !== GITHUB_USERNAME);
+        displayProjects(filtered.slice(0, 6));
+    } catch (e) {
+        projectGrid.innerHTML = '<p class="loading">Failed to load projects.</p>';
+    }
+}
+
+function displayProjects(repos) {
+    projectGrid.innerHTML = '';
+    repos.forEach(repo => {
+        const imgUrl = projectImages[repo.name] || '';
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        
+        // Build tags from language and topics
+        let tags = [repo.language];
+        if (repo.topics) tags = [...tags, ...repo.topics.slice(0, 4)];
+        tags = tags.filter(Boolean);
+
+        card.innerHTML = `
+            <div class="project-image">
+                ${imgUrl 
+                    ? `<img src="${imgUrl}" alt="${repo.name}">` 
+                    : `<span class="project-placeholder">📂</span>`}
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">${formatName(repo.name)}</h3>
+                <p class="project-desc">${repo.description || 'No description available.'}</p>
+                <div class="project-tags">${tags.map(t => `<span>${t}</span>`).join('')}</div>
+                <a href="${repo.html_url}" target="_blank" rel="noopener" class="project-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    Source Code
+                </a>
+            </div>
+        `;
+        projectGrid.appendChild(card);
+    });
+}
+
+function formatName(name) {
+    return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
+document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
