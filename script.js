@@ -5,6 +5,7 @@ const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
 let mouse = { x: null, y: null, radius: 150 };
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -85,27 +86,29 @@ window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
-// Mobile touch support - Update position without preventing default to allow scrolling
-document.addEventListener('touchstart', e => {
-    const touch = e.touches[0];
-    if (touch) {
-        mouse.x = touch.clientX;
-        mouse.y = touch.clientY;
-    }
-}, { passive: true });
+// Mobile touch support
+if (!isTouchDevice) {
+    document.addEventListener('touchstart', e => {
+        const touch = e.touches[0];
+        if (touch) {
+            mouse.x = touch.clientX;
+            mouse.y = touch.clientY;
+        }
+    }, { passive: true });
 
-document.addEventListener('touchmove', e => {
-    const touch = e.touches[0];
-    if (touch) {
-        mouse.x = touch.clientX;
-        mouse.y = touch.clientY;
-    }
-}, { passive: true });
+    document.addEventListener('touchmove', e => {
+        const touch = e.touches[0];
+        if (touch) {
+            mouse.x = touch.clientX;
+            mouse.y = touch.clientY;
+        }
+    }, { passive: true });
 
-document.addEventListener('touchend', () => {
-    mouse.x = null;
-    mouse.y = null;
-}, { passive: true });
+    document.addEventListener('touchend', () => {
+        mouse.x = null;
+        mouse.y = null;
+    }, { passive: true });
+}
 
 resizeCanvas(); initParticles(); animate();
 
@@ -141,7 +144,6 @@ menuToggle.addEventListener('click', (e) => {
     navMenu.classList.toggle('active');
 });
 
-// Close menu when clicking outside
 document.addEventListener('click', (e) => {
     if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
         navMenu.classList.remove('active');
@@ -256,7 +258,7 @@ const projectImages = {
     'Cadia-Bot': 'https://cybrancee.com/blog/wp-content/uploads/2025/08/discordBotCharacterBanner.jpg',
     'API-Header-Spoofer': 'https://miro.medium.com/v2/resize:fit:1200/1*EEgef3BnDkS9ScNQ8O8mkA.png',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
-    'create-discobase': 'https://camo.githubusercontent.com/e9f3d83505b2eb1ea7fb6c2a9105dd6c93f45bf0c8e96578ba9e59ea6acc9b65/68747470733a2f2f692e6962622e636f2f714d6248504b74592f646973636f2d312e706e67',
+    'create-discobase': 'https://www.discobase.site/image.png',
     'FR4-Leaking-Tool': 'https://cdn.educba.com/academy/wp-content/uploads/2019/05/Data-Mining-Tool.jpg',
     'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png'
 };
