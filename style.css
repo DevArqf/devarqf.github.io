@@ -481,8 +481,9 @@ h1 {
 }
 
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -494,6 +495,8 @@ h1 {
     transition: all 0.3s;
     text-align: center;
     cursor: default;
+    flex: 0 0 auto;
+    width: 200px;
 }
 
 .skill-card:hover {
@@ -636,5 +639,6 @@ h1 {
     .hero-buttons { flex-direction: column; }
     .about-cards { grid-template-columns: 1fr; }
     .project-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skills-grid { flex-direction: row; flex-wrap: wrap; }
+    .skill-card { width: calc(50% - 10px); }
 }

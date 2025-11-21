@@ -85,28 +85,22 @@ window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
-// Mobile touch support - Global for body, with preventDefault for canvas interaction
+// Mobile touch support - Update position without preventing default to allow scrolling
 document.addEventListener('touchstart', e => {
-    if (e.target === canvas || e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
-        e.preventDefault();
-    }
     const touch = e.touches[0];
     if (touch) {
         mouse.x = touch.clientX;
         mouse.y = touch.clientY;
     }
-}, { passive: false });
+}, { passive: true });
 
 document.addEventListener('touchmove', e => {
-    if (e.target === canvas || e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
-        e.preventDefault();
-    }
     const touch = e.touches[0];
     if (touch) {
         mouse.x = touch.clientX;
         mouse.y = touch.clientY;
     }
-}, { passive: false });
+}, { passive: true });
 
 document.addEventListener('touchend', () => {
     mouse.x = null;
