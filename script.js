@@ -167,7 +167,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ============================================
-// TYPING EFFECT (FIXED)
+// TYPING EFFECT
 // ============================================
 const texts = [
     'Discord Bot Developer',
