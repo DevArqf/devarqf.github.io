@@ -109,23 +109,48 @@ const navMenu = document.querySelector('.nav-menu');
 menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
 // ============================================
-// TYPING EFFECT
+// TYPING EFFECT (FIXED)
 // ============================================
-const texts = ['Discord Bot Developer', 'Automation Specialist', 'ML & AI Enthusiast', 'Open Source Contributor'];
-let textIndex = 0, charIndex = 0, isDeleting = false;
+const texts = [
+    'Discord Bot Developer',
+    'Automation Specialist',
+    'ML & AI Enthusiast',
+    'Open Source Contributor'
+];
+
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
 const typedEl = document.querySelector('.typed-text');
 
 function type() {
     const current = texts[textIndex];
-    typedEl.textContent = isDeleting 
-        ? current.substring(0, charIndex--) 
-        : current.substring(0, charIndex++);
-    
+
+    typedEl.textContent = current.substring(0, charIndex);
+
+    if (!isDeleting) {
+        charIndex++;
+    } else {
+        charIndex--;
+    }
+
     let delay = isDeleting ? 50 : 100;
-    if (!isDeleting && charIndex === current.length) { delay = 2000; isDeleting = true; }
-    else if (isDeleting && charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % texts.length; delay = 500; }
+
+    if (!isDeleting && charIndex > current.length) {
+        isDeleting = true;
+        delay = 2000;
+    }
+
+    if (isDeleting && charIndex < 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        delay = 500;
+    }
+
     setTimeout(type, delay);
 }
+
 type();
 
 // ============================================
@@ -134,13 +159,31 @@ type();
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
+
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offset = 80;
-            const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({ top: pos, behavior: 'smooth' });
-            navMenu.classList.remove('active');
+        if (!target) return;
+
+        const offset = 80;
+        const targetY = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        const startY = window.pageYOffset;
+        const distance = targetY - startY;
+        const duration = 800;
+        const startTime = performance.now();
+
+        function animateScroll(currentTime) {
+            const time = currentTime - startTime;
+            const progress = Math.min(time / duration, 1);
+
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+
+            window.scrollTo(0, startY + distance * easeOut);
+
+            if (progress < 1) requestAnimationFrame(animateScroll);
         }
+
+        requestAnimationFrame(animateScroll);
+
+        navMenu.classList.remove('active');
     });
 });
 
