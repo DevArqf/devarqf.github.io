@@ -82,7 +82,15 @@ function animate() {
 }
 
 // Mouse and Touch Events
-window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+window.addEventListener('resize', () => { 
+    resizeCanvas(); 
+    initParticles(); 
+    const navbar = document.querySelector('.navbar');
+    const navMenu = document.querySelector('.nav-menu');
+    if (window.innerWidth <= 768 && navMenu) {
+        navMenu.style.top = navbar.offsetHeight + 'px';
+    }
+});
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
@@ -111,6 +119,14 @@ if (!isTouchDevice) {
 }
 
 resizeCanvas(); initParticles(); animate();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector('.navbar');
+    const navMenu = document.querySelector('.nav-menu');
+    if (window.innerWidth <= 768 && navbar && navMenu) {
+        navMenu.style.top = navbar.offsetHeight + 'px';
+    }
+});
 
 // ============================================
 // THEME TOGGLE
