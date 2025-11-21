@@ -1,5 +1,3 @@
-// Malik's Portfolio - JavaScript
-
 // ============================================
 // PARTICLE SYSTEM
 // ============================================
@@ -170,7 +168,6 @@ window.addEventListener('scroll', () => {
 const GITHUB_USERNAME = 'DevArqf';
 const projectGrid = document.getElementById('project-grid');
 
-// Project images - Add your own image URLs here
 const projectImages = {
     'VoiceGuard': 'https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg',
     'Cadia-Bot': 'https://cybrancee.com/blog/wp-content/uploads/2025/08/discordBotCharacterBanner.jpg',
@@ -200,7 +197,6 @@ function displayProjects(repos) {
         const card = document.createElement('div');
         card.className = 'project-card';
         
-        // Build tags from language and topics
         let tags = [repo.language];
         if (repo.topics) tags = [...tags, ...repo.topics.slice(0, 4)];
         tags = tags.filter(Boolean);
@@ -230,3 +226,4 @@ function formatName(name) {
 }
 
 document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
+
