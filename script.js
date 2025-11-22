@@ -237,7 +237,8 @@ const projectImages = {
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
     'create-discobase': 'https://camo.githubusercontent.com/e9f3d83505b2eb1ea7fb6c2a9105dd6c93f45bf0c8e96578ba9e59ea6acc9b65/68747470733a2f2f692e6962622e636f2f714d6248504b74592f646973636f2d312e706e67',
     'FR4-Leaking-Tool': 'https://cdn.educba.com/academy/wp-content/uploads/2019/05/Data-Mining-Tool.jpg',
-    'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png'
+    'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png',
+    'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png'
 };
 async function fetchGitHubRepos() {
     try {
@@ -286,4 +287,5 @@ function displayProjects(repos) {
 function formatName(name) {
     return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
+
 document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
