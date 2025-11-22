@@ -126,11 +126,12 @@ updateThemeIcon(savedTheme);
 function updateThemeIcon(theme) {
     const isDark = theme === 'dark';
     themeBtn.innerHTML = isDark
-        ? `<img src="images/moon.png" alt="Dark Mode" width="20" height="20">`
-        : `<img src="images/sun.png" alt="Light Mode" width="20" height="20">`;
+        ? `<img src="images/moon.png" alt="Dark Mode">`
+        : `<img src="images/sun.png" alt="Light Mode">`;
 }
 themeBtn.addEventListener('click', () => {
-    const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    const currentTheme = document.body.dataset.theme;
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.body.dataset.theme = newTheme;
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
@@ -234,7 +235,7 @@ const projectImages = {
     'Cadia-Bot': 'https://cybrancee.com/blog/wp-content/uploads/2025/08/discordBotCharacterBanner.jpg',
     'API-Header-Spoofer': 'https://miro.medium.com/v2/resize:fit:1200/1*EEgef3BnDkS9ScNQ8O8mkA.png',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
-    'create-discobase': 'https://www.discobase.site/image.png',
+    'create-discobase': 'https://camo.githubusercontent.com/e9f3d83505b2eb1ea7fb6c2a9105dd6c93f45bf0c8e96578ba9e59ea6acc9b65/68747470733a2f2f692e6962622e636f2f714d6248504b74592f646973636f2d312e706e67',
     'FR4-Leaking-Tool': 'https://cdn.educba.com/academy/wp-content/uploads/2019/05/Data-Mining-Tool.jpg',
     'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png'
 };
@@ -258,7 +259,7 @@ function displayProjects(repos) {
         const imgUrl = projectImages[repo.name] || '';
         const card = document.createElement('div');
         card.className = 'project-card';
-       
+      
         let tags = [repo.language];
         if (repo.topics) tags = [...tags, ...repo.topics.slice(0, 4)];
         tags = tags.filter(Boolean);
