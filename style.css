@@ -287,26 +287,27 @@ h1 {
   font-weight: 600;
 }
 .underline {
-    position: relative;
-    width: 120px;
-    height: 4px;
-    background: var(--primary);
-    border: none;
-    border-radius: 4px;
-    margin: 0 auto 12px;
+  position: relative;
+  width: 120px;
+  height: 4px;
+  background: var(--primary);
+  border: none;
+  overflow: visible; /*Enabled = Natural Shadow Look | Disabled = Simple Blue Underline*/
+  border-radius: 4px;
+  margin: 0 auto 12px;
 }
-  
-  .underline::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    translate: -50%;
-    width: 80%;
-    height: 100%;
-    box-shadow: 0 5px 15px 1px var(--primary);
-    clip-path: inset(0px -40px -40px -40px);
-}  
+
+.underline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50%;
+  width: 80%;
+  height: 100%;
+  box-shadow: 0 5px 15px 1px var(--primary);
+  clip-path: inset(0px -40px -40px -40px);
+}
 /* ==================== ABOUT ==================== */
 .about-content {
   display: grid;
