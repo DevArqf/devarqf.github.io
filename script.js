@@ -232,11 +232,11 @@ const GITHUB_USERNAME = 'DevArqf';
 const projectGrid = document.getElementById('project-grid');
 const projectImages = {
     'VoiceGuard': 'https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg',
-    'Cadia-Bot': 'https://cybrancee.com/blog/wp-content/uploads/2025/08/discordBotCharacterBanner.jpg',
+    'Cadia-Bot': 'https://externlabs.com/blogs/wp-content/uploads/2023/04/discord-bot-1.jpg',
     'API-Header-Spoofer': 'https://miro.medium.com/v2/resize:fit:1200/1*EEgef3BnDkS9ScNQ8O8mkA.png',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
     'create-discobase': 'https://i.ytimg.com/vi/IBOgiLbbqQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDqSsb29-6TNW-K9J5FQuUWsE_YGQ',
-    'FR4-Leaking-Tool': 'https://cdn.educba.com/academy/wp-content/uploads/2019/05/Data-Mining-Tool.jpg',
+    'FR4-Leaking-Tool': 'https://cdn.prod.website-files.com/605c9e03d6553a5d82976ce2/6694da95927079afecb864c2_What-is-Data-Mining.png',
     'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png',
 	'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png'
 };
