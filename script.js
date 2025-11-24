@@ -287,4 +287,5 @@ function displayProjects(repos) {
 function formatName(name) {
     return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
+
 document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
