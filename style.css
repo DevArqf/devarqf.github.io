@@ -286,44 +286,20 @@ h1 {
   margin-bottom: 16px;
   font-weight: 600;
 }
-/* Clean, Simple Underline */
 .underline {
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-}
-.underline::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.6;
-}
-.theme-btn:hover,
-.social-link:hover,
-.primary-btn:hover {
-  box-shadow: 0 0 20px var(--primary-glow, rgba(77, 166, 255, 0.4));
-}
-.underline {
-  position: relative;
-  margin: 0 auto;
-  box-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow), 0 0 30px var(--glow),
-    0 0 40px var(--glow);
-  animation: glow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow), 0 0 30px var(--glow),
-      0 0 40px var(--glow);
-  }
-  to {
-    box-shadow: 0 0 20px var(--glow-strong, var(--glow)),
-      0 0 30px var(--glow-strong, var(--glow)),
-      0 0 40px var(--glow-strong, var(--glow)),
-      0 0 50px var(--glow-strong, var(--glow));
-  }
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 
+      0 0 20px var(--glow),
+      0 0 35px var(--glow),
+      0 0 50px var(--glow),
+      0 0 70px var(--glow),
+      0 0 90px rgba(77, 166, 255, 1),
+      0 0 120px rgba(77, 166, 255, 0.9),
+      0 0 150px rgba(77, 166, 255, 0.8),
+      0 0 180px rgba(77, 166, 255, 0.6),
+      inset 0 0 40px rgba(77, 166, 255, 0.6);
+    border-radius: 4px;
 }
 /* ==================== ABOUT ==================== */
 .about-content {
