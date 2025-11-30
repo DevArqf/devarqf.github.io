@@ -245,10 +245,22 @@ async function fetchGitHubRepos() {
         const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`);
         if (!res.ok) throw new Error('Failed');
         const repos = await res.json();
-        const filtered = repos.filter(r =>
-            (!r.fork && r.name !== GITHUB_USERNAME && r.name !== 'devarqf.github.io') ||
-            (r.fork && r.name === 'create-discobase')
-        );
+
+        const filtered = repos.filter(r => {
+            if (r.fork && r.name === 'create-discobase') return true;
+
+            const excludedNames = [
+                GITHUB_USERNAME,
+                'devarqf.github.io',
+                'WIMMG',
+                'Portfolio Ideas',
+                'FR4-Leaking-Tool',
+                'API-Header-Spoofer'
+            ];
+
+            return !r.fork && !excludedNames.includes(r.name);
+        });
+
         displayProjects(filtered.slice(0, 6));
     } catch (e) {
         projectGrid.innerHTML = '<p class="loading">Failed to load projects.</p>';
