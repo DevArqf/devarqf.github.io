@@ -42,7 +42,7 @@
 }
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #0d1b2a, #1b263b, #0f3460);
+  background: radial-gradient(ellipse at top, #162138 0%, #0b1426 70%);
   background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.6;
@@ -52,6 +52,16 @@ body {
   flex-direction: column;
   min-height: 100svh;
   position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(77, 166, 255, 0.06) 0%, 
+    transparent 50%
+  );
+  pointer-events: none;
 }
 /* ==================== NAVBAR ==================== */
 .header {
