@@ -20,7 +20,7 @@ jobs:
                "https://api.github.com/users/DevArqf/repos?sort=updated&per_page=50" \
                -o raw-repos.json
 
-          node -e -e "
+          node -e "
           const repos = require('./raw-repos.json');
           const exclude = ['DevArqf', 'devarqf.github.io', 'WIMMG', 'Portfolio Ideas', 'API-Header-Spoofer'];
           const filtered = repos
