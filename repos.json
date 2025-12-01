@@ -1,0 +1,30 @@
+[
+    {
+      "name": "DeBugBuddy",
+      "description": "\"Your terminal's debugging companion - instant error explanations, no StackOverflow required.\"",
+      "html_url": "https://github.com/DevArqf/DeBugBuddy",
+      "language": "Python",
+      "topics": ["cli", "debugging", "developertools", "python"]
+    },
+    {
+      "name": "Cadia-Bot",
+      "description": "Introducing Cadia Bot! It's a Discord Bot featuring a multipurpose design and a unique RPG-style system at its core.",
+      "html_url": "https://github.com/DevArqf/Cadia-Bot",
+      "language": "JavaScript",
+      "topics": ["discord-bot", "discord-js", "javascript", "multipurpose-bot", "rpg-game"]
+    },
+    {
+      "name": "Molek-Syntez-Solitaire-Solver",
+      "description": "A Python-based AI solver for the custom solitaire minigame from Zachtronics' \"Molek-Syntez\". This project implements a breadth-first search algorithm with constraint satisfaction to find optimal solutions for complex card-stacking puzzles.",
+      "html_url": "https://github.com/DevArqf/Molek-Syntez-Solitaire-Solver",
+      "language": "Python",
+      "topics": ["learning-project", "molek-syntez", "solitaire-solver"]
+    },
+    {
+      "name": "VoiceGuard",
+      "description": "Advanced Voice Authentication System using OpenAI ChatGPT & Whisper APIs. Secure voice biometric identification with AI-powered analysis, multi-sample enrollment, and enterprise-grade authentication logging. Python-based with SQLite database.",
+      "html_url": "https://github.com/DevArqf/VoiceGuard",
+      "language": "Python",
+      "topics": ["ai", "authentication", "chatgpt", "machine-learning", "openai", "python", "voice-recognition", "whisper"]
+    }
+  ]

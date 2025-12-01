@@ -1,6 +1,7 @@
 // ============================================
 // PARTICLE SYSTEM
 // ============================================
+/*
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -116,9 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.style.top = navbar.offsetHeight + 'px';
     }
 });
+*/
 // ============================================
 // THEME TOGGLE
 // ============================================
+/*
 const themeBtn = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('theme') || 'dark';
 document.body.dataset.theme = savedTheme;
@@ -136,6 +139,7 @@ themeBtn.addEventListener('click', () => {
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
 });
+*/
 // ============================================
 // MOBILE MENU
 // ============================================
@@ -150,40 +154,7 @@ document.addEventListener('click', (e) => {
         navMenu.classList.remove('active');
     }
 });
-// ============================================
-// TYPING EFFECT
-// ============================================
-const texts = [
-    'Discord Bot Developer',
-    'Automation Specialist',
-    'ML & AI Enthusiast',
-    'Open Source Contributor'
-];
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typedEl = document.querySelector('.typed-text');
-function type() {
-    const current = texts[textIndex];
-    typedEl.textContent = current.substring(0, charIndex);
-    if (!isDeleting) {
-        charIndex++;
-    } else {
-        charIndex--;
-    }
-    let delay = isDeleting ? 50 : 100;
-    if (!isDeleting && charIndex > current.length) {
-        isDeleting = true;
-        delay = 2000;
-    }
-    if (isDeleting && charIndex < 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        delay = 500;
-    }
-    setTimeout(type, delay);
-}
-type();
+
 // ============================================
 // SMOOTH SCROLL
 // ============================================
@@ -209,6 +180,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         navMenu.classList.remove('active');
     });
 });
+
 // ============================================
 // ACTIVE NAV ON SCROLL
 // ============================================
@@ -225,6 +197,7 @@ window.addEventListener('scroll', () => {
         if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
     });
 });
+
 // ============================================
 // GITHUB API - FETCH REPOS
 // ============================================
@@ -233,60 +206,77 @@ const projectGrid = document.getElementById('project-grid');
 const projectImages = {
     'VoiceGuard': 'https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg',
     'Cadia-Bot': 'https://externlabs.com/blogs/wp-content/uploads/2023/04/discord-bot-1.jpg',
-    'API-Header-Spoofer': 'https://miro.medium.com/v2/resize:fit:1200/1*EEgef3BnDkS9ScNQ8O8mkA.png',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
     'create-discobase': 'https://i.ytimg.com/vi/IBOgiLbbqQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDqSsb29-6TNW-K9J5FQuUWsE_YGQ',
-    'FR4-Leaking-Tool': 'https://cdn.prod.website-files.com/605c9e03d6553a5d82976ce2/6694da95927079afecb864c2_What-is-Data-Mining.png',
-    'devarqf.github.io': 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4085226/cover_image/regular_1708x683/1115R_Unlimited_Scale_Lina_Newsletter-59c7a35d52f5b27a7db0f794e7b0690e.png',
-	'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png'
+    'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png'
 };
+
 async function fetchGitHubRepos() {
     try {
-        const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`);
-        if (!res.ok) throw new Error('Failed');
-        const repos = await res.json();
+        const response = await fetch(
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`,
+            {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'User-Agent': 'DevArqf-Portfolio'
+                }
+            }
+        );
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const repos = await response.json();
 
         const filtered = repos.filter(r => {
             if (r.fork && r.name === 'create-discobase') return true;
-
-            const excludedNames = [
-                GITHUB_USERNAME,
-                'devarqf.github.io',
-                'WIMMG',
-                'Portfolio Ideas',
-                'FR4-Leaking-Tool',
-                'API-Header-Spoofer'
-            ];
-
-            return !r.fork && !excludedNames.includes(r.name);
+            const excluded = ['DevArqf', 'devarqf.github.io', 'WIMMG', 'Portfolio Ideas', 'API-Header-Spoofer'];
+            return !r.fork && !excluded.includes(r.name);
         });
 
+        if (filtered.length === 0) {
+            projectGrid.innerHTML = '<p style="text-align:center;color:var(--text-muted);">No projects found.</p>';
+            return;
+        }
+
         displayProjects(filtered.slice(0, 6));
-    } catch (e) {
-        projectGrid.innerHTML = '<p class="loading">Failed to load projects.</p>';
+        return;
+
+    } catch (error) {
+        console.warn('Direct API failed, falling back to cached repos.json:', error);
+    }
+
+    try {
+        const response = await fetch('repos.json');
+        const repos = await response.json();
+        displayProjects(repos.slice(0, 6));
+    } catch (error) {
+        console.error('Fallback failed too:', error);
+        projectGrid.innerHTML = '<p style="text-align:center;color:var(--text-muted);">Failed to load projects. (Check console for details)</p>';
     }
 }
+
 function displayProjects(repos) {
-    projectGrid.innerHTML = '';
+    projectGrid.innerHTML = ''; // Clear loading spinner
     repos.forEach(repo => {
         const imgUrl = projectImages[repo.name] || '';
         const card = document.createElement('div');
         card.className = 'project-card';
-      
-        let tags = [repo.language];
-        if (repo.topics) tags = [...tags, ...repo.topics.slice(0, 4)];
+
+        let tags = repo.language ? [repo.language] : [];
+        if (repo.topics && repo.topics.length > 0) {
+            tags = [...tags, ...repo.topics.slice(0, 4)];
+        }
         tags = tags.filter(Boolean);
+
         card.innerHTML = `
             <div class="project-image">
-                ${imgUrl
-                    ? `<img src="${imgUrl}" alt="${repo.name}">`
-                    : `<span class="project-placeholder">📂</span>`}
+                ${imgUrl ? `<img src="${imgUrl}" alt="${repo.name}">` : `<span class="project-placeholder">📂</span>`}
             </div>
             <div class="project-info">
                 <h3 class="project-title">${formatName(repo.name)}</h3>
                 <p class="project-desc">${repo.description || 'No description available.'}</p>
                 <div class="project-tags">${tags.map(t => `<span>${t}</span>`).join('')}</div>
-                <hr class="project-divider"></hr>
+                <hr class="project-divider">
                 <a href="${repo.html_url}" target="_blank" rel="noopener" class="project-link">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                     Source Code
@@ -296,8 +286,17 @@ function displayProjects(repos) {
         projectGrid.appendChild(card);
     });
 }
+
 function formatName(name) {
     return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
+
+window.addEventListener('resize', () => {
+    const navbar = document.querySelector('.navbar');
+    const navMenu = document.querySelector('.nav-menu');
+    if (window.innerWidth <= 768 && navMenu) {
+        navMenu.style.top = navbar.offsetHeight + 'px';
+    }
+});
