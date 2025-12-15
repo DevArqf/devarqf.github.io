@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeBugBuddy | Malik Johnson</title>
+    <meta name="description" content="AI-powered CLI tool that instantly explains programming errors in your terminal.">
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="../index.html" class="nav-logo">Malik Johnson</a>
+                <ul class="nav-menu">
+                    <li><a href="../index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                    <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding-top: 120px; min-height: 100svh;">
+        <section class="section" style="max-width: 1000px; margin: 0 auto; padding: 0 40px;">
+            <a href="../index.html#projects" style="color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 30px; font-size: 1.1rem;">
+                ← Back to Projects
+            </a>
+
+            <h1 style="font-size: clamp(2.4rem, 5vw, 3.4rem); margin-bottom: 16px;">DeBugBuddy</h1>
+            <p style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 40px;">
+                Your terminal's AI-powered debugging companion
+            </p>
+
+            <img src="https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png" 
+                 alt="DeBugBuddy Logo" 
+                 style="width: 100%; max-width: 700px; border-radius: 18px; border: 1.5px solid var(--card-border); margin: 50px; display: block;">
+
+            <div style="background: var(--bg-card); padding: 40px; border-radius: 18px; border: 1.5px solid var(--card-border);">
+                <h2 style="color: var(--primary); font-size: 1.8rem; margin-bottom: 20px;">Overview</h2>
+                <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 30px;">
+                    DeBugBuddy is a command-line tool that instantly explains programming errors using AI. 
+                    Simply copy your error message from the terminal, run the tool, and receive clear, actionable explanations, eliminating the need for endless searches on Stack Overflow.
+                </p>
+
+                <h2 style="color: var(--primary); font-size: 1.8rem; margin: 40px 0 20px;">Key Features</h2>
+                <ul style="color: var(--text-secondary); line-height: 1.9; padding-left: 28px; font-size: 1.1rem; margin-bottom: 30px;">
+                    <li>AI-powered error analysis using OpenAI models</li>
+                    <li>Supports Python, JavaScript, Java, C++, and more</li>
+                    <li>Context-aware suggestions and potential fixes</li>
+                    <li>Offline mode with response caching</li>
+                    <li>Customizable prompts and output formatting</li>
+                </ul>
+
+                <h2 style="color: var(--primary); font-size: 1.8rem; margin: 40px 0 20px;">Tech Stack</h2>
+                <div class="project-tags" style="gap: 12px; margin-bottom: 40px;">
+                    <span>Python</span>
+                    <span>OpenAI API</span>
+                    <span>CLI</span>
+                    <span>Rich Library</span>
+                    <span>Typer</span>
+                </div>
+
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <a href="https://github.com/DevArqf/DeBugBuddy" target="_blank" rel="noopener" class="btn primary-btn">
+                        View Source Code
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+[
+    {
+      "repoName": "DeBugBuddy",
+      "displayName": "DeBugBuddy",
+      "customTags": ["AI", "CLI Tool", "Debugging", "Python", "OpenAI"],
+      "imageUrl": "https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png",
+      "detailPage": "projects/debugbuddy.html"
+    },
+    {
+      "repoName": "Cadia-Bot",
+      "displayName": "Cadia Bot",
+      "customTags": ["Discord Bot", "JavaScript", "RPG System", "Node.js", "Sapphire"],
+      "imageUrl": "https://externlabs.com/blogs/wp-content/uploads/2023/04/discord-bot-1.jpg",
+      "detailPage": "projects/cadia-bot.html"
+    },
+    {
+      "repoName": "VoiceGuard",
+      "displayName": "VoiceGuard",
+      "customTags": ["AI", "Security", "Voice Biometrics", "OpenAI Whisper", "Python"],
+      "imageUrl": "https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg",
+      "detailPage": "projects/voiceguard.html"
+    },
+    {
+      "repoName": "Molek-Syntez-Solitaire-Solver",
+      "displayName": "Molek-Syntez Solitaire Solver",
+      "customTags": ["Algorithm", "Puzzle Solver", "Python", "BFS", "Game AI"],
+      "imageUrl": "https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259",
+      "detailPage": "projects/molek-solitaire.html"
+    },
+    {
+      "repoName": "create-discobase",
+      "displayName": "Discobase",
+      "customTags": ["CLI", "Tooling", "Discord.js", "Template", "Node.js"],
+      "imageUrl": "https://i.ytimg.com/vi/IBOgiLbbqQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDqSsb29-6TNW-K9J5FQuUWsE_YGQ",
+      "detailPage": "projects/discobase.html"
+    }
+  ]

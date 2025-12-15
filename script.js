@@ -199,11 +199,13 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// GITHUB API - FETCH REPOS
+// GITHUB API - FETCH REPOS WITH CUSTOM OVERRIDES
 // ============================================
+
 const GITHUB_USERNAME = 'DevArqf';
 const projectGrid = document.getElementById('project-grid');
-const projectImages = {
+
+const defaultProjectImages = {
     'VoiceGuard': 'https://www.shutterstock.com/image-vector/ai-voice-bot-sound-wave-600nw-2656509111.jpg',
     'Cadia-Bot': 'https://externlabs.com/blogs/wp-content/uploads/2023/04/discord-bot-1.jpg',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
@@ -211,7 +213,30 @@ const projectImages = {
     'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png'
 };
 
+let customConfigs = {};
+
+async function loadCustomConfig() {
+    try {
+        const res = await fetch('/projects-config.json');
+        if (res.ok) {
+            const configs = await res.json();
+            customConfigs = configs.reduce((map, cfg) => {
+                map[cfg.repoName] = cfg;
+                return map;
+            }, {});
+        }
+    } catch (err) {
+        console.warn('Could not load projects-config.json – using defaults only', err);
+    }
+}
+
+function formatName(name) {
+    return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
 async function fetchGitHubRepos() {
+    await loadCustomConfig();
+
     try {
         const response = await fetch(
             `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`,
@@ -239,64 +264,95 @@ async function fetchGitHubRepos() {
         }
 
         displayProjects(filtered.slice(0, 6));
-        return;
-
     } catch (error) {
-        console.warn('Direct API failed, falling back to cached repos.json:', error);
-    }
-
-    try {
-        const response = await fetch('repos.json');
-        const repos = await response.json();
-        displayProjects(repos.slice(0, 6));
-    } catch (error) {
-        console.error('Fallback failed too:', error);
-        projectGrid.innerHTML = '<p style="text-align:center;color:var(--text-muted);">Failed to load projects. (Check console for details)</p>';
+        console.warn('GitHub API failed, trying fallback repos.json:', error);
+        try {
+            const response = await fetch('/repos.json');
+            const repos = await response.json();
+            displayProjects(repos.slice(0, 6));
+        } catch (fallbackError) {
+            console.error('Fallback failed too:', fallbackError);
+            projectGrid.innerHTML = '<p style="text-align:center;color:var(--text-muted);">Failed to load projects.</p>';
+        }
     }
 }
 
 function displayProjects(repos) {
-    projectGrid.innerHTML = ''; // Clear loading spinner
-    repos.forEach(repo => {
-        const imgUrl = projectImages[repo.name] || '';
-        const card = document.createElement('div');
-        card.className = 'project-card';
+    projectGrid.innerHTML = '';
 
-        let tags = repo.language ? [repo.language] : [];
-        if (repo.topics && repo.topics.length > 0) {
-            tags = [...tags, ...repo.topics.slice(0, 4)];
+    repos.forEach(repo => {
+        const config = customConfigs[repo.name] || {};
+        const displayName = config.displayName || formatName(repo.name);
+        const description = repo.description || 'No description available.';
+        const imgUrl = config.imageUrl || defaultProjectImages[repo.name] || '';
+        const detailPage = config.detailPage || null;
+
+        let tags = [];
+        if (config.customTags) {
+            tags = config.customTags;
+        } else {
+            if (repo.language) tags.push(repo.language);
+            if (repo.topics?.length > 0) {
+                tags = [...tags, ...repo.topics.slice(0, 4)];
+            }
         }
         tags = tags.filter(Boolean);
 
+        const card = document.createElement('div');
+        card.className = 'project-card';
+
+        if (detailPage) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a')) return;
+                window.location.href = detailPage;
+            });
+        }
+
         card.innerHTML = `
             <div class="project-image">
-                ${imgUrl ? `<img src="${imgUrl}" alt="${repo.name}">` : `<span class="project-placeholder">📂</span>`}
+                ${imgUrl 
+                    ? `<img src="${imgUrl}" alt="${displayName}" loading="lazy">`
+                    : `<span class="project-placeholder">📂</span>`
+                }
             </div>
             <div class="project-info">
-                <h3 class="project-title">${formatName(repo.name)}</h3>
-                <p class="project-desc">${repo.description || 'No description available.'}</p>
-                <div class="project-tags">${tags.map(t => `<span>${t}</span>`).join('')}</div>
+                <h3 class="project-title">${displayName}</h3>
+                <p class="project-desc">${description}</p>
+                <div class="project-tags">
+                    ${tags.map(t => `<span>${t}</span>`).join('')}
+                </div>
                 <hr class="project-divider">
-                <a href="${repo.html_url}" target="_blank" rel="noopener" class="project-link">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    Source Code
-                </a>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <a href="${repo.html_url}" target="_blank" rel="noopener" class="project-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">...</svg>
+                        Source Code
+                    </a>
+                </div>
             </div>
         `;
+
         projectGrid.appendChild(card);
     });
 }
 
-function formatName(name) {
-    return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-}
+document.addEventListener('DOMContentLoaded', () => {
+    fetchGitHubRepos();
 
-document.addEventListener('DOMContentLoaded', fetchGitHubRepos);
-
-window.addEventListener('resize', () => {
     const navbar = document.querySelector('.navbar');
     const navMenu = document.querySelector('.nav-menu');
-    if (window.innerWidth <= 768 && navMenu) {
+    if (window.innerWidth <= 768 && navbar && navMenu) {
+        navMenu.style.top = navbar.offsetHeight + 'px';
+    }
+});
+
+window.addEventListener('resize', () => {
+    resizeCanvas?.();
+    initParticles?.();
+
+    const navbar = document.querySelector('.navbar');
+    const navMenu = document.querySelector('.nav-menu');
+    if (window.innerWidth <= 768 && navbar && navMenu) {
         navMenu.style.top = navbar.offsetHeight + 'px';
     }
 });
