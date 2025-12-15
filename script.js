@@ -213,7 +213,8 @@ const projectImages = {
     'Cadia-Bot': 'https://externlabs.com/blogs/wp-content/uploads/2023/04/discord-bot-1.jpg',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
     'create-discobase': 'https://i.ytimg.com/vi/IBOgiLbbqQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDqSsb29-6TNW-K9J5FQuUWsE_YGQ',
-    'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png'
+    'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png',
+    'jolt-python-api': 'https://private-user-images.githubusercontent.com/160127620/526418512-56d00786-a546-4ea7-a183-68dd3fdf755b.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU3ODAyOTUsIm5iZiI6MTc2NTc3OTk5NSwicGF0aCI6Ii8xNjAxMjc2MjAvNTI2NDE4NTEyLTU2ZDAwNzg2LWE1NDYtNGVhNy1hMTgzLTY4ZGQzZmRmNzU1Yi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMjE1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTIxNVQwNjI2MzVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02NWVjYjNkNDQxNzVmMjBiZmFjMDk1OTI1ODI3ZmY2OTQyZGFmYmNkNWMxN2I5ZGE4YTVkMTQ5Y2RhYzc5YzhkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.F9kmVQrucyQ3uRPJJCUV9XDc5lnFqTGogm16f2khaxU'
 };
 
 async function fetchGitHubRepos() {
@@ -261,7 +262,7 @@ async function fetchGitHubRepos() {
 }
 
 function displayProjects(repos) {
-    projectGrid.innerHTML = ''; // Clear loading spinner
+    projectGrid.innerHTML = '';
     repos.forEach(repo => {
         const imgUrl = projectImages[repo.name] || '';
         const card = document.createElement('div');
