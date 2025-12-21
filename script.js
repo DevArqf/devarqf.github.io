@@ -214,7 +214,9 @@ const projectImages = {
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
     'create-discobase': 'https://i.ytimg.com/vi/IBOgiLbbqQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDqSsb29-6TNW-K9J5FQuUWsE_YGQ',
     'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png',
-    'jolt-python-api': 'https://github.com/DevArqf/jolt-python-api/blob/main/Jolt%20Logo.png'
+    'jolt-python-api': 'https://github.com/DevArqf/devarqf.github.io/blob/main/images/Jolt%Python%20Logo.png',
+    'jolt-js-api': 'https://github.com/DevArqf/devarqf.github.io/blob/main/images/Jolt%20Javascript%20Logo.png',
+    'Spoti-DL': 'https://github.com/DevArqf/devarqf.github.io/blob/main/images/Spoti%20DL%20.png'
 };
 
 async function fetchGitHubRepos() {
