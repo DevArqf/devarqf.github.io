@@ -332,6 +332,16 @@ h1 {
   fill: #4da6ff;
   transition: all 0.3s ease;
 }
+.social-link img {
+  width: 26px;
+  height: 26px;
+  display: block;
+  transition: all 0.3s ease;
+}
+.social-link img.devto-icon {
+  width: 30px;
+  height: 30px;
+}
 .about-icon,
 .contact-icon {
   width: 52px;
@@ -347,6 +357,9 @@ h1 {
 .social-link:hover svg {
   fill: #7ec4ff;
   filter: drop-shadow(0 0 8px rgba(77, 166, 255, 0.5));
+}
+.social-link:hover img {
+  filter: brightness(1.15) drop-shadow(0 0 8px rgba(77, 166, 255, 0.5));
 }
 .about-content {
   display: grid;
@@ -508,6 +521,20 @@ h1 {
 .skill-icon img {
   width: 36px;
   height: 36px;
+}
+.skill-icon .text-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(77, 166, 255, 0.15);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
 }
 .skill-card span {
   font-weight: 600;
