@@ -213,7 +213,7 @@ const projectImages = {
     'Cadia-Bot': 'https://externlabs.com/blogs/wp-content/uploads/2023/04/discord-bot-1.jpg',
     'Molek-Syntez-Solitaire-Solver': 'https://fanatical.imgix.net/product/original/8d8a5eb6-4b87-4733-ad7e-6d8580c722f8.jpeg?auto=compress,format&w=460&fit=crop&h=259',
     'create-discobase': 'https://i.ytimg.com/vi/IBOgiLbbqQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDqSsb29-6TNW-K9J5FQuUWsE_YGQ',
-    'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/DeBugBuddy%20Logo.png',
+    'DeBugBuddy': 'https://raw.githubusercontent.com/DevArqf/DeBugBuddy/main/debugbuddy-branding/DeBugBuddy%20Banner.png',
     'jolt-python-api': 'https://raw.githubusercontent.com/DevArqf/devarqf.github.io/refs/heads/main/images/Jolt%20Python%20Logo.png',
     'jolt-js-api': 'https://raw.githubusercontent.com/DevArqf/devarqf.github.io/refs/heads/main/images/Jolt%20Javascript%20Logo.png',
     'Spoti-DL': 'https://raw.githubusercontent.com/DevArqf/devarqf.github.io/refs/heads/main/images/Spoti%20DL.png'
