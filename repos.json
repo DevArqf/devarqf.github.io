@@ -99,6 +99,8 @@
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
     "topics": [
       "cli",
       "debugging",
@@ -212,6 +214,8 @@
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
     "topics": [
       "automation",
       "downloader",
@@ -327,6 +331,8 @@
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
     "topics": [],
     "visibility": "public",
     "forks": 0,
@@ -428,6 +434,8 @@
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": true,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
     "topics": [
       "discord-bot",
       "discord-js",
@@ -544,6 +552,8 @@
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
     "topics": [
       "learning-project",
       "molek-syntez",
@@ -655,6 +665,8 @@
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
     "topics": [
       "ai",
       "audio-processing",
