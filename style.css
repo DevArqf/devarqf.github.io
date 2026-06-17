@@ -494,6 +494,54 @@ h1 {
   width: 18px;
   height: 18px;
 }
+/* ==================== REMOTION SHOWREEL ==================== */
+.showreel-section {
+  position: relative;
+}
+.showreel-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 50px;
+  margin-bottom: 32px;
+}
+.showreel-kicker {
+  display: inline-block;
+  color: var(--primary-light);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.showreel-intro h3 {
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  line-height: 1.15;
+}
+.showreel-intro p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+.showreel-frame {
+  padding: 10px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(77, 166, 255, 0.75), rgba(100, 210, 255, 0.08) 42%, rgba(77, 166, 255, 0.32));
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.36), 0 0 55px rgba(77, 166, 255, 0.12);
+}
+#portfolio-video-player {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #07101f;
+}
+.video-loading {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
 /* ==================== SKILLS & CONTACT ==================== */
 .skills-container {
   display: grid;
@@ -655,6 +703,17 @@ h1 {
   }
   .project-grid {
     grid-template-columns: 1fr;
+  }
+  .showreel-intro {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .showreel-frame {
+    padding: 5px;
+    border-radius: 18px;
+  }
+  #portfolio-video-player {
+    border-radius: 14px;
   }
   .skills-grid {
     gap: 20px;
