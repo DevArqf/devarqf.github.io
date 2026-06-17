@@ -1,13 +1,17 @@
 import React from 'react';
 import {
   AbsoluteFill,
+  Audio,
   Easing,
+  Img,
   Sequence,
   interpolate,
   spring,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+import profileImage from '../../images/Malik Johnson Profile.png';
+import soundtrack from '../../audio/portfolio-soundtrack.mp3';
 
 export const PORTFOLIO_VIDEO_FPS = 30;
 export const PORTFOLIO_VIDEO_DURATION = 1080;
@@ -167,18 +171,23 @@ const IntroScene = () => {
             style={{
               width: 330,
               height: 330,
+              padding: 12,
               borderRadius: 74,
               background: `linear-gradient(145deg, ${colors.blue}, ${colors.cyan})`,
               boxShadow: '0 35px 100px rgba(77, 166, 255, 0.28)',
               flexShrink: 0,
-              display: 'grid',
-              placeItems: 'center',
-              fontSize: 118,
-              fontWeight: 850,
-              letterSpacing: -8,
             }}
           >
-            MJ
+            <Img
+              src={profileImage}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                borderRadius: 63,
+                background: 'rgba(7, 16, 31, 0.78)',
+              }}
+            />
           </div>
           <div>
             <Eyebrow>Portfolio showreel</Eyebrow>
@@ -434,6 +443,17 @@ const ClosingScene = () => {
 
 export const PortfolioVideo = () => (
   <AbsoluteFill style={{backgroundColor: colors.background}}>
+    <Audio
+      src={soundtrack}
+      volume={(frame) =>
+        interpolate(
+          frame,
+          [0, 45, PORTFOLIO_VIDEO_DURATION - 90, PORTFOLIO_VIDEO_DURATION],
+          [0, 0.48, 0.48, 0],
+          {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+        )
+      }
+    />
     <Sequence durationInFrames={180}>
       <FadeScene durationInFrames={180}>
         <IntroScene />

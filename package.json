@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run build:player && vite",
     "build": "npm run build:player && vite build",
-    "build:player": "esbuild src/main.jsx --bundle --format=esm --platform=browser --target=es2020 --define:process.env.NODE_ENV=\\\"production\\\" --minify --outfile=portfolio-video.js",
+    "build:player": "esbuild src/main.jsx --bundle --format=esm --platform=browser --target=es2020 --loader:.png=dataurl --loader:.mp3=dataurl --define:process.env.NODE_ENV=\\\"production\\\" --minify --outfile=portfolio-video.js",
     "preview": "vite preview",
     "remotion:studio": "remotion studio src/remotion/index.jsx",
     "remotion:render": "remotion render src/remotion/index.jsx PortfolioShowreel out/portfolio-showreel.mp4"
