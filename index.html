@@ -135,9 +135,17 @@
                 <p>A concise overview of who I am, what I build, the languages and technologies I use, selected projects, and how to reach me.</p>
             </div>
             <div class="showreel-frame">
-                <div id="portfolio-video-player" aria-label="Malik Johnson portfolio showreel">
-                    <div class="video-loading">Loading interactive showreel…</div>
-                </div>
+                <video
+                    class="showreel-video"
+                    controls
+                    preload="metadata"
+                    playsinline
+                    poster="media/portfolio-showreel-poster.webp"
+                    aria-label="Malik Johnson portfolio showreel"
+                >
+                    <source src="media/portfolio-showreel.mp4" type="video/mp4">
+                    Your browser does not support HTML video.
+                </video>
             </div>
         </section>
 
@@ -401,7 +409,6 @@
         </footer>
     </main>
     <script type="module" src="/script.js"></script>
-    <script type="module" src="portfolio-video.js?v=native-audio-5"></script>
 </body>
 
 </html>
