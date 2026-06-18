@@ -437,18 +437,6 @@ const ClosingScene = () => {
 };
 
 export const PortfolioVideo = ({soundtrackEnabled = true}) => {
-  const frame = useCurrentFrame();
-  const cameraScale = interpolate(
-    frame,
-    [0, PORTFOLIO_VIDEO_DURATION - 1],
-    [1.025, 1],
-    {
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-      easing: Easing.inOut(Easing.cubic),
-    },
-  );
-
   return (
     <AbsoluteFill style={{backgroundColor: colors.background}}>
       {soundtrackEnabled ? (
@@ -464,14 +452,7 @@ export const PortfolioVideo = ({soundtrackEnabled = true}) => {
           }
         />
       ) : null}
-      <AbsoluteFill
-        style={{
-          transform: `translate3d(0, 0, 0) scale(${cameraScale})`,
-          transformOrigin: '50% 50%',
-          willChange: 'transform',
-          backfaceVisibility: 'hidden',
-        }}
-      >
+      <AbsoluteFill>
         <Sequence durationInFrames={180}>
           <FadeScene durationInFrames={180}>
             <IntroScene />

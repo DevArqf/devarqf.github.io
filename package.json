@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "remotion:studio": "remotion studio src/remotion/index.jsx",
-    "remotion:render": "remotion render src/remotion/index.jsx PortfolioShowreel media/portfolio-showreel.mp4 --codec=h264 --crf=24 --scale=0.6666666667 --audio-bitrate=160k --pixel-format=yuv420p"
+    "remotion:render": "remotion render src/remotion/index.jsx PortfolioShowreel media/portfolio-showreel.mp4 --codec=h264 --crf=17 --audio-bitrate=192k --pixel-format=yuv420p"
   },
   "dependencies": {
     "react": "19.2.7",
