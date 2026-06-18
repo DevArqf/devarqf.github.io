@@ -19,8 +19,14 @@ if (mount) {
         compositionHeight={1080}
         fps={PORTFOLIO_VIDEO_FPS}
         controls
+        showVolumeControls
         loop
         autoPlay={false}
+        initiallyMuted={false}
+        initialVolume={1}
+        volumePersistenceKey="malik-portfolio-showreel-volume-v2"
+        sampleRate={44100}
+        numberOfSharedAudioTags={1}
         acknowledgeRemotionLicense
         style={{
           width: '100%',

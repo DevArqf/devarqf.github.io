@@ -449,7 +449,7 @@ export const PortfolioVideo = () => (
         interpolate(
           frame,
           [0, 45, PORTFOLIO_VIDEO_DURATION - 90, PORTFOLIO_VIDEO_DURATION],
-          [0, 0.48, 0.48, 0],
+          [0, 0.9, 0.9, 0],
           {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
         )
       }
