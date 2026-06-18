@@ -36,14 +36,9 @@ const FadeScene = ({children, durationInFrames}) => {
     [0, 1, 1, 0],
     {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
   );
-  const scale = interpolate(frame, [0, durationInFrames], [1.03, 1], {
-    extrapolateRight: 'clamp',
-  });
 
   return (
-    <AbsoluteFill style={{opacity, transform: `scale(${scale})`}}>
-      {children}
-    </AbsoluteFill>
+    <AbsoluteFill style={{opacity}}>{children}</AbsoluteFill>
   );
 };
 
@@ -441,43 +436,68 @@ const ClosingScene = () => {
   );
 };
 
-export const PortfolioVideo = () => (
-  <AbsoluteFill style={{backgroundColor: colors.background}}>
-    <Audio
-      src={soundtrack}
-      volume={(frame) =>
-        interpolate(
-          frame,
-          [0, 45, PORTFOLIO_VIDEO_DURATION - 90, PORTFOLIO_VIDEO_DURATION],
-          [0, 0.9, 0.9, 0],
-          {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
-        )
-      }
-    />
-    <Sequence durationInFrames={180}>
-      <FadeScene durationInFrames={180}>
-        <IntroScene />
-      </FadeScene>
-    </Sequence>
-    <Sequence from={180} durationInFrames={210}>
-      <FadeScene durationInFrames={210}>
-        <ProfileScene />
-      </FadeScene>
-    </Sequence>
-    <Sequence from={390} durationInFrames={240}>
-      <FadeScene durationInFrames={240}>
-        <SkillsScene />
-      </FadeScene>
-    </Sequence>
-    <Sequence from={630} durationInFrames={270}>
-      <FadeScene durationInFrames={270}>
-        <ProjectsScene />
-      </FadeScene>
-    </Sequence>
-    <Sequence from={900} durationInFrames={180}>
-      <FadeScene durationInFrames={180}>
-        <ClosingScene />
-      </FadeScene>
-    </Sequence>
-  </AbsoluteFill>
-);
+export const PortfolioVideo = ({soundtrackEnabled = true}) => {
+  const frame = useCurrentFrame();
+  const cameraScale = interpolate(
+    frame,
+    [0, PORTFOLIO_VIDEO_DURATION - 1],
+    [1.025, 1],
+    {
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
+      easing: Easing.inOut(Easing.cubic),
+    },
+  );
+
+  return (
+    <AbsoluteFill style={{backgroundColor: colors.background}}>
+      {soundtrackEnabled ? (
+        <Audio
+          src={soundtrack}
+          volume={(audioFrame) =>
+            interpolate(
+              audioFrame,
+              [0, 45, PORTFOLIO_VIDEO_DURATION - 90, PORTFOLIO_VIDEO_DURATION],
+              [0, 0.9, 0.9, 0],
+              {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+            )
+          }
+        />
+      ) : null}
+      <AbsoluteFill
+        style={{
+          transform: `translate3d(0, 0, 0) scale(${cameraScale})`,
+          transformOrigin: '50% 50%',
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+        }}
+      >
+        <Sequence durationInFrames={180}>
+          <FadeScene durationInFrames={180}>
+            <IntroScene />
+          </FadeScene>
+        </Sequence>
+        <Sequence from={180} durationInFrames={210}>
+          <FadeScene durationInFrames={210}>
+            <ProfileScene />
+          </FadeScene>
+        </Sequence>
+        <Sequence from={390} durationInFrames={240}>
+          <FadeScene durationInFrames={240}>
+            <SkillsScene />
+          </FadeScene>
+        </Sequence>
+        <Sequence from={630} durationInFrames={270}>
+          <FadeScene durationInFrames={270}>
+            <ProjectsScene />
+          </FadeScene>
+        </Sequence>
+        <Sequence from={900} durationInFrames={180}>
+          <FadeScene durationInFrames={180}>
+            <ClosingScene />
+          </FadeScene>
+        </Sequence>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
